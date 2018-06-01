@@ -1,7 +1,17 @@
-fdt_addr_r=0x0c800000
-bootcmd_dtb=fdt addr $fdt_addr_r; fdt get value bootargs_fdt /chosen bootargs
-bootcmd_otenv=ext2load mmc 0:2 $loadaddr /boot/loader/uEnv.txt; env import -t $loadaddr $filesize
-bootcmd_args=setenv bootargs "$bootargs $bootargs_fdt ostree_root=/dev/mmcblk0p2 root=/dev/ram0 rw rootwait rootdelay=2 ramdisk_size=8192"
+bootcmd_resetvars=setenv kernel_image; setenv ramdisk_image; setenv bootargs; setenv kernel_image2; setenv ramdisk_image2; setenv bootargs2
+bootcmd_otenv=run bootcmd_resetvars; ext2load mmc 0:2 $loadaddr /boot/loader/uEnv.txt; env import -t $loadaddr $filesize
+bootcmd_rollbackenv=setenv kernel_image ${kernel_image2}; setenv ramdisk_image ${ramdisk_image2}; setenv bootargs ${bootargs2}
+
+bootcmd_args=setenv bootargs "$bootargs $bootargs_fdt ostree_root=/dev/mmcblk0p2 root=/dev/ram0 rw rootwait rootdelay=2 ramdisk_size=8192 panic=1"
 bootcmd_load=ext2load mmc 0:2 $kernel_addr_r "/boot"$kernel_image; ext2load mmc 0:2 $ramdisk_addr_r "/boot"$ramdisk_image
 bootcmd_run=bootm $kernel_addr_r $ramdisk_addr_r
-bootcmd=run bootcmd_otenv; run bootcmd_args; run bootcmd_load; run bootcmd_run
+
+bootcmd_create_envfile=if test ! -e mmc 0:1 uboot.env; then saveenv; fi;
+
+bootlimit=3
+
+bootcmd=if test "${rollback}" = "1"; then run altbootcmd; else run bootcmd_create_envfile; run bootcmd_otenv; run bootcmd_args; run bootcmd_load; run bootcmd_run; if ! "${upgrade_available}" = "1"; then setenv upgrade_available 1; saveenv; fi; reset; fi
+
+bootcmd_set_rollback=if test ! "${rollback}" = "1"; then setenv rollback 1; setenv upgrade_available 0; saveenv; fi
+altbootcmd=run bootcmd_create_envfile; run bootcmd_otenv; run bootcmd_set_rollback; if test -n "${kernel_image2}"; then run bootcmd_rollbackenv; fi; run bootcmd_args; run bootcmd_load; run bootcmd_run; reset
+
