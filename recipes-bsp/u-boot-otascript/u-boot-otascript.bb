@@ -4,6 +4,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384
 
 DEPENDS = "u-boot-mkimage-native"
 
+PR = "r1"
+
 COMPATIBLE_MACHINE = "raspberrypi"
 
 SRC_URI = "file://boot.scr \
