@@ -113,6 +113,15 @@ sleep 2
 # for example. Better to just get the name of the partition after we flash it.
 SECOND_PARTITION=$(fdisk -l /dev/$DEVICE_TO_FLASH | tail -n 1 | awk '{print $1}')
 
+# Check if there is a problem with the boot partition, and fix it if there is.
+# parted can identify the problem but apparently can't fix it without user
+# interaction.
+MISMATCH=$(fdisk -l /dev/mmcblk0 2>&1 >/dev/null | grep "GPT PMBR size mismatch")
+if [ -n "$MISMATCH" ]; then
+  echo "Fixing GPT PMBR size mismatch."
+  sgdisk -e /dev/$DEVICE_TO_FLASH
+fi
+
 echo "Resizing rootfs partition to fill all of $DEVICE_TO_FLASH..."
 parted -s /dev/$DEVICE_TO_FLASH resizepart 2 '100%'
 sleep 2
