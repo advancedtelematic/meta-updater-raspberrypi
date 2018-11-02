@@ -1,0 +1,26 @@
+From f265a022df419dcae1dad93dd3fe0ca321021b42 Mon Sep 17 00:00:00 2001
+From: Anton Gerasimov <anton.gerasimov@here.com>
+Date: Mon, 28 May 2018 13:27:52 +0200
+Subject: [PATCH] Enable FIT and bootcount on RPi3
+
+---
+ configs/rpi_3_32b_defconfig | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/configs/rpi_3_32b_defconfig b/configs/rpi_3_32b_defconfig
+index bb56a9e4e1..55a441d2ee 100644
+--- a/configs/rpi_3_32b_defconfig
++++ b/configs/rpi_3_32b_defconfig
+@@ -36,3 +36,9 @@ CONFIG_SYS_WHITE_ON_BLACK=y
+ CONFIG_CONSOLE_SCROLL_LINES=10
+ CONFIG_PHYS_TO_BUS=y
+ CONFIG_OF_LIBFDT_OVERLAY=y
++
++CONFIG_FIT=y
++CONFIG_FIT_VERBOSE=y
++
++CONFIG_BOOTCOUNT_LIMIT=y
++CONFIG_BOOTCOUNT_ENV=y
+-- 
+2.17.0
+
