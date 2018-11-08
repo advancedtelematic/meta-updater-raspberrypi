@@ -46,7 +46,7 @@ fi
 
 if [ -z "$1" ]; then
   echo ""
-  echo "   Flash a built image with an ATS Garage device config file baked in."
+  echo "   Flash a built image with a HERE OTA Connect device config file baked in."
   echo ""
   echo "   Usage: ./flash-configured-image.sh device [imagefile [force]]"
   echo ""
