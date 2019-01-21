@@ -120,7 +120,7 @@ SECOND_PARTITION=$(fdisk -l "/dev/$DEVICE_TO_FLASH" | tail -n 1 | awk '{print $1
 # Check if there is a problem with the boot partition, and fix it if there is.
 # parted can identify the problem but apparently can't fix it without user
 # interaction.
-MISMATCH=$(fdisk -l /dev/mmcblk0 2>&1 >/dev/null | grep "GPT PMBR size mismatch")
+MISMATCH=$(fdisk -l "/dev/$DEVICE_TO_FLASH" 2>&1 >/dev/null | grep "GPT PMBR size mismatch" || true)
 if [ -n "$MISMATCH" ]; then
   echo "Fixing GPT PMBR size mismatch."
   sgdisk -e "/dev/$DEVICE_TO_FLASH"
