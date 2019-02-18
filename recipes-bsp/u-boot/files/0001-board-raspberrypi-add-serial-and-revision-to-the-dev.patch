@@ -31,10 +31,10 @@ index 35f5939552..114178397e 100644
  		return;
  	}
  
--	snprintf(serial_string, sizeof(serial_string), "%016llx",
+-	snprintf(serial_string, sizeof(serial_string), "%016" PRIx64,
 -		 msg->get_board_serial.body.resp.serial);
 +	serial = msg->get_board_serial.body.resp.serial;
-+	snprintf(serial_string, sizeof(serial_string), "%016llx", serial);
++	snprintf(serial_string, sizeof(serial_string), "%016" PRIx64, serial);
  	env_set("serial#", serial_string);
  }
  
