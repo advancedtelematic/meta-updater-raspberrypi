@@ -1,7 +1,7 @@
 LICENSE = "MPL-2.0"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MPL-2.0;md5=815ca599c9df247a0c7f619bab123dad"
 
-RDEPENDS_${PN} += " kernel-modules linux-firmware-rpidistro-bcm43430 linux-firmware-rpidistro-bcm43455 wpa-supplicant "
+RDEPENDS_${PN} += " kernel-modules linux-firmware-raspbian-bcm43430 linux-firmware-raspbian-bcm43455 wpa-supplicant "
 
 SRC_URI = "\
     file://26-dhcp-wireless.network \
