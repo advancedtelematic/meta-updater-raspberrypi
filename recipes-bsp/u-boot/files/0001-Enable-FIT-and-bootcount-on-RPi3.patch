@@ -1,17 +1,32 @@
-From f265a022df419dcae1dad93dd3fe0ca321021b42 Mon Sep 17 00:00:00 2001
-From: Anton Gerasimov <anton.gerasimov@here.com>
-Date: Mon, 28 May 2018 13:27:52 +0200
+From c849889cce23b41df45cfa4efd9fde8eb682195f Mon Sep 17 00:00:00 2001
+From: Laurent Bonnans <laurent.bonnans@here.com>
+Date: Wed, 5 Jun 2019 18:12:21 +0200
 Subject: [PATCH] Enable FIT and bootcount on RPi3
 
 ---
  configs/rpi_3_32b_defconfig | 6 ++++++
- 1 file changed, 6 insertions(+)
+ configs/rpi_3_defconfig     | 6 ++++++
+ 2 files changed, 12 insertions(+)
 
 diff --git a/configs/rpi_3_32b_defconfig b/configs/rpi_3_32b_defconfig
-index bb56a9e4e1..55a441d2ee 100644
+index 9e142cae63..d5d32a202d 100644
 --- a/configs/rpi_3_32b_defconfig
 +++ b/configs/rpi_3_32b_defconfig
-@@ -36,3 +36,9 @@ CONFIG_SYS_WHITE_ON_BLACK=y
+@@ -39,3 +39,9 @@ CONFIG_SYS_WHITE_ON_BLACK=y
+ CONFIG_CONSOLE_SCROLL_LINES=10
+ CONFIG_PHYS_TO_BUS=y
+ CONFIG_OF_LIBFDT_OVERLAY=y
++
++CONFIG_FIT=y
++CONFIG_FIT_VERBOSE=y
++
++CONFIG_BOOTCOUNT_LIMIT=y
++CONFIG_BOOTCOUNT_ENV=y
+diff --git a/configs/rpi_3_defconfig b/configs/rpi_3_defconfig
+index f46e504497..80fb70119e 100644
+--- a/configs/rpi_3_defconfig
++++ b/configs/rpi_3_defconfig
+@@ -39,3 +39,9 @@ CONFIG_SYS_WHITE_ON_BLACK=y
  CONFIG_CONSOLE_SCROLL_LINES=10
  CONFIG_PHYS_TO_BUS=y
  CONFIG_OF_LIBFDT_OVERLAY=y
@@ -22,5 +37,6 @@ index bb56a9e4e1..55a441d2ee 100644
 +CONFIG_BOOTCOUNT_LIMIT=y
 +CONFIG_BOOTCOUNT_ENV=y
 -- 
-2.17.0
+2.20.1
+
 
