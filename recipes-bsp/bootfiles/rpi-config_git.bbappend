@@ -14,4 +14,5 @@ do_deploy_append() {
     echo "dtparam=audio=on" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
 }
 
-ENABLE_UART_raspberrypi3 = "1"
+ENABLE_UART_raspberrypi3 ?= "1"
+ENABLE_UART_raspberrypi4 ?= "1"
