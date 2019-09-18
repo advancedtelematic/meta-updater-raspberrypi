@@ -31,7 +31,7 @@ Checkout:
 
   stage: checkout
   variables:
-    MANIFEST: master
+    MANIFEST: warrior
     CURRENT_PROJECT: meta-updater-raspberrypi
   except:
     - pushes
