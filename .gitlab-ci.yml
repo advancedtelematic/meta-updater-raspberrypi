@@ -1,0 +1,58 @@
+stages:
+  - docker
+  - checkout
+  - test
+
+variables:
+  # bitbake variables
+  BITBAKE_IMAGE: ${METAUPDATER_REGISTRY_IMAGE}:ci-master-bitbake
+  BITBAKE_CHECKOUT_IMAGE: ${METAUPDATER_REGISTRY_IMAGE}:ci-master-checkout
+
+include:
+  - project: 'olp/edge/ota/connect/client/meta-updater'
+    ref: 'master'
+    file: 'scripts/ci/gitlab/docker.yml'
+  - project: 'olp/edge/ota/connect/client/meta-updater'
+    ref: 'master'
+    file: 'scripts/ci/gitlab/checkout.yml'
+  - project: 'olp/edge/ota/connect/client/meta-updater'
+    ref: 'master'
+    file: 'scripts/ci/gitlab/tests.yml'
+
+Docker setup:
+  extends: .bb_docker_remote
+
+  stage: docker
+  except:
+    - pushes
+
+Checkout:
+  extends: .bb_checkout
+
+  stage: checkout
+  variables:
+    MANIFEST: thud
+    CURRENT_PROJECT: meta-updater-raspberrypi
+  except:
+    - pushes
+
+Build core-image-minimal (rpi):
+  extends: .bitbake
+
+  stage: test
+  variables:
+    TEST_BUILD_DIR: 'build-core-image-minimal-rpi'
+    BITBAKE_TARGETS: 'core-image-minimal'
+    TEST_MACHINE: 'raspberrypi3'
+  except:
+    - pushes
+
+Oe-selftest rpi:
+  extends: .oe-selftest
+
+  stage: test
+  variables:
+    TEST_BUILD_DIR: 'build-oe-rpi'
+    OE_SELFTESTS: 'updater_raspberrypi'
+  except:
+    - pushes
