@@ -1,5 +1,7 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${BPN}:"
 
+SRC_URI_append = " ${@oe.utils.conditional('ENABLE_AUDIO', '1', 'file://audio.patch', '', d)}"
+
 SRC_URI_append_raspberrypi4 = " file://0001-Add-rpi4-uart0-dtb-overlay.patch"
 
 do_configure_append_sota() {
