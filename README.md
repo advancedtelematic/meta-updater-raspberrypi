@@ -1,7 +1,10 @@
-# BSP layer for updating Raspberrypi with OSTree
+# BSP layer for updating Raspberry Pi with OSTree
 
-* OSTree bootloader integration for Raspberry Pi. Add it to BBLAYERS when using [meta-updater](https://github.com/advancedtelematic/meta-updater) with [Raspberry Pi](https://github.com/agherzan/meta-raspberrypi).
-* Wi-Fi enablement for Raspberry Pi
+OSTree bootloader integration for Raspberry Pi. Add it to BBLAYERS when using [meta-updater](https://github.com/advancedtelematic/meta-updater) with [Raspberry Pi](https://github.com/agherzan/meta-raspberrypi).
+
+For more documentation on using this layer and [HERE OTA Connect](https://connect.ota.here.com/), please see the [OTA Connect documentation portal](https://docs.ota.here.com/), in particular the guide on [building a Raspberry Pi image](https://docs.ota.here.com/ota-client/latest/build-raspberry.html).
+
+## Wi-Fi enablement for Raspberry Pi
 
 | Name | Default | Description |
 |---|---|---|
