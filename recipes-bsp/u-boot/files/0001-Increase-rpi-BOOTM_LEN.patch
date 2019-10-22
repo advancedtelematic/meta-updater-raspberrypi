@@ -1,4 +1,4 @@
-From a4a9b71ac4900fee8081c85c630d55e20b233a81 Mon Sep 17 00:00:00 2001
+From c7d936ae239e9609d95537746600e42892f3dcfb Mon Sep 17 00:00:00 2001
 From: Laurent Bonnans <laurent.bonnans@here.com>
 Date: Wed, 5 Jun 2019 19:22:01 +0200
 Subject: [PATCH] Increase rpi BOOTM_LEN
@@ -8,17 +8,14 @@ Subject: [PATCH] Increase rpi BOOTM_LEN
  1 file changed, 1 insertion(+)
 
 diff --git a/include/configs/rpi.h b/include/configs/rpi.h
-index a97550b732..4ce9b2f99e 100644
+index 77d2d5458a..dd60042200 100644
 --- a/include/configs/rpi.h
 +++ b/include/configs/rpi.h
-@@ -56,6 +56,7 @@
+@@ -54,6 +54,7 @@
  #define CONFIG_SYS_MEMTEST_START	0x00100000
  #define CONFIG_SYS_MEMTEST_END		0x00200000
  #define CONFIG_LOADADDR			0x00200000
 +#define CONFIG_SYS_BOOTM_LEN		SZ_64M
  
- /* Devices */
- /* GPIO */
--- 
-2.20.1
-
+ #ifdef CONFIG_ARM64
+ #define CONFIG_SYS_BOOTM_LEN		SZ_64M
