@@ -1,7 +1,8 @@
-From 86cc911aaa958fedf2ea9cb04b4af17f5357815d Mon Sep 17 00:00:00 2001
+From 4a5d44fb43f2729bc588e81bfe03053f3ee04f91 Mon Sep 17 00:00:00 2001
 From: Anton Gerasimov <anton.gerasimov@here.com>
 Date: Fri, 1 Feb 2019 14:39:48 +0100
 Subject: [PATCH] board: raspberrypi: add serial and revision to the device
+
  tree
 
 Raspberry Pi bootloader adds this node to fdt, but if u-boot script
@@ -10,24 +11,25 @@ doesn't reuse the tree provided by it, this information is lost.
 Revision and serial are displayed in /proc/cpuinfo after boot.
 
 Signed-off-by: Anton Gerasimov <anton.gerasimov@here.com>
+
 ---
  board/raspberrypi/rpi/rpi.c | 31 +++++++++++++++++++++++++++++--
  1 file changed, 29 insertions(+), 2 deletions(-)
 
 diff --git a/board/raspberrypi/rpi/rpi.c b/board/raspberrypi/rpi/rpi.c
-index 35f5939552..114178397e 100644
+index 9e0abdda31..55fcce3671 100644
 --- a/board/raspberrypi/rpi/rpi.c
 +++ b/board/raspberrypi/rpi/rpi.c
-@@ -241,6 +241,8 @@ static uint32_t rev_scheme;
+@@ -248,6 +248,8 @@ static uint32_t rev_scheme;
  static uint32_t rev_type;
  static const struct rpi_model *model;
  
 +uint64_t serial;
 +
  #ifdef CONFIG_ARM64
- static struct mm_region bcm2837_mem_map[] = {
- 	{
-@@ -384,8 +386,8 @@ static void set_serial_number(void)
+ #ifndef CONFIG_BCM2711
+ static struct mm_region bcm283x_mem_map[] = {
+@@ -422,8 +424,8 @@ static void set_serial_number(void)
  		return;
  	}
  
@@ -38,7 +40,7 @@ index 35f5939552..114178397e 100644
  	env_set("serial#", serial_string);
  }
  
-@@ -478,6 +480,29 @@ void *board_fdt_blob_setup(void)
+@@ -516,6 +518,29 @@ void *board_fdt_blob_setup(void)
  	return (void *)fw_dtb_pointer;
  }
  
@@ -68,7 +70,7 @@ index 35f5939552..114178397e 100644
  int ft_board_setup(void *blob, bd_t *bd)
  {
  	/*
-@@ -487,6 +512,8 @@ int ft_board_setup(void *blob, bd_t *bd)
+@@ -525,6 +550,8 @@ int ft_board_setup(void *blob, bd_t *bd)
  	 */
  	lcd_dt_simplefb_add_node(blob);
  
@@ -77,6 +79,3 @@ index 35f5939552..114178397e 100644
  #ifdef CONFIG_EFI_LOADER
  	/* Reserve the spin table */
  	efi_add_memory_map(0, 1, EFI_RESERVED_MEMORY_TYPE, 0);
--- 
-2.17.1
-
