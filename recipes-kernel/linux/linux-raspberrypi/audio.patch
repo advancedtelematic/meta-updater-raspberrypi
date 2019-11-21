@@ -1,0 +1,13 @@
+diff --git a/arch/arm/boot/dts/bcm2708-rpi.dtsi b/arch/arm/boot/dts/bcm2708-rpi.dtsi
+index 6a82591c51d1..783b7306b861 100644
+--- a/arch/arm/boot/dts/bcm2708-rpi.dtsi
++++ b/arch/arm/boot/dts/bcm2708-rpi.dtsi
+@@ -65,7 +65,7 @@
+ 		audio: audio {
+ 			compatible = "brcm,bcm2835-audio";
+ 			brcm,pwm-channels = <8>;
+-			status = "disabled";
++			status = "okay";
+ 		};
+ 
+ 		/* External sound card */
