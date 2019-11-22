@@ -31,7 +31,7 @@ Checkout:
 
   stage: checkout
   variables:
-    MANIFEST: zeus
+    MANIFEST: master
     CURRENT_PROJECT: meta-updater-raspberrypi
   except:
     - pushes
