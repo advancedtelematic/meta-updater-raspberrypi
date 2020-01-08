@@ -29,6 +29,6 @@ You can see examples of the first two approaches in [the linux-raspberrypi bbapp
 
 ## License
 
-This code is licensed under the [Mozilla Public License 2.0](LICENSE), a copy of which can be found in this repository. All code is copyright HERE Europe B.V., 2016-2019.
+This code is licensed under the [Mozilla Public License 2.0](LICENSE), a copy of which can be found in this repository. All code is copyright HERE Europe B.V., 2016-2020.
 
 We require that contributors accept the terms of Linux Foundation's [Developer Certificate of Origin](https://developercertificate.org/). Please see the [contribution instructions of aktualizr](https://github.com/advancedtelematic/aktualizr/blob/master/CONTRIBUTING.md) for more information.
