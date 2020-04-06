@@ -1,9 +1,7 @@
-From 4a5d44fb43f2729bc588e81bfe03053f3ee04f91 Mon Sep 17 00:00:00 2001
+From fb48900977dbbfc6f921822abc6728b6075efc4f Mon Sep 17 00:00:00 2001
 From: Anton Gerasimov <anton.gerasimov@here.com>
 Date: Fri, 1 Feb 2019 14:39:48 +0100
-Subject: [PATCH] board: raspberrypi: add serial and revision to the device
-
- tree
+Subject: [PATCH] board: raspberrypi: add serial and revision to device tree
 
 Raspberry Pi bootloader adds this node to fdt, but if u-boot script
 doesn't reuse the tree provided by it, this information is lost.
@@ -11,25 +9,26 @@ doesn't reuse the tree provided by it, this information is lost.
 Revision and serial are displayed in /proc/cpuinfo after boot.
 
 Signed-off-by: Anton Gerasimov <anton.gerasimov@here.com>
+Signed-off-by: Patrick Vacek <patrick.vacek@here.com>
 
 ---
  board/raspberrypi/rpi/rpi.c | 31 +++++++++++++++++++++++++++++--
  1 file changed, 29 insertions(+), 2 deletions(-)
 
 diff --git a/board/raspberrypi/rpi/rpi.c b/board/raspberrypi/rpi/rpi.c
-index 9e0abdda31..55fcce3671 100644
+index e367ba3092..d70e07f0a6 100644
 --- a/board/raspberrypi/rpi/rpi.c
 +++ b/board/raspberrypi/rpi/rpi.c
-@@ -248,6 +248,8 @@ static uint32_t rev_scheme;
+@@ -252,6 +252,8 @@ static uint32_t rev_scheme;
  static uint32_t rev_type;
  static const struct rpi_model *model;
  
 +uint64_t serial;
 +
- #ifdef CONFIG_ARM64
- #ifndef CONFIG_BCM2711
- static struct mm_region bcm283x_mem_map[] = {
-@@ -422,8 +424,8 @@ static void set_serial_number(void)
+ int dram_init(void)
+ {
+ 	ALLOC_CACHE_ALIGN_BUFFER(struct msg_get_arm_mem, msg, 1);
+@@ -384,8 +386,8 @@ static void set_serial_number(void)
  		return;
  	}
  
@@ -40,7 +39,7 @@ index 9e0abdda31..55fcce3671 100644
  	env_set("serial#", serial_string);
  }
  
-@@ -516,6 +518,29 @@ void *board_fdt_blob_setup(void)
+@@ -478,6 +480,29 @@ void *board_fdt_blob_setup(void)
  	return (void *)fw_dtb_pointer;
  }
  
@@ -70,7 +69,7 @@ index 9e0abdda31..55fcce3671 100644
  int ft_board_setup(void *blob, bd_t *bd)
  {
  	/*
-@@ -525,6 +550,8 @@ int ft_board_setup(void *blob, bd_t *bd)
+@@ -487,6 +512,8 @@ int ft_board_setup(void *blob, bd_t *bd)
  	 */
  	lcd_dt_simplefb_add_node(blob);
  
