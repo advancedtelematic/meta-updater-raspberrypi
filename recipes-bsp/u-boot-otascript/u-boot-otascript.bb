@@ -16,13 +16,13 @@ S = "${WORKDIR}"
 inherit deploy
 
 do_deploy() {
-    install -d ${DEPLOYDIR}/bcm2835-bootfiles
+    install -d ${DEPLOYDIR}/${BOOTFILES_DIR_NAME}
 
-    mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n "Ostree boot script" -d ${S}/boot.scr ${DEPLOYDIR}/bcm2835-bootfiles/boot.scr
-    install -m 0755 ${S}/uEnv.txt ${DEPLOYDIR}/bcm2835-bootfiles/uEnv.txt
+    mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n "Ostree boot script" -d ${S}/boot.scr ${DEPLOYDIR}/${BOOTFILES_DIR_NAME}/boot.scr
+    install -m 0755 ${S}/uEnv.txt ${DEPLOYDIR}/${BOOTFILES_DIR_NAME}/uEnv.txt
 }
 
 addtask deploy before do_package after do_install
-do_deploy[dirs] += "${DEPLOYDIR}/bcm2835-bootfiles"
+do_deploy[dirs] += "${DEPLOYDIR}/${BOOTFILES_DIR_NAME}"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
