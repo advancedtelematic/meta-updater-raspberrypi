@@ -8,6 +8,10 @@ SRC_URI = "\
     file://wpa_supplicant-wlan0.conf \
     "
 
+inherit useradd
+
+USERADD_PACKAGES = "${PN}"
+GROUPADD_PARAM_${PN} = "-fr netdev"
 
 do_install () {
     if [ -z ${RPI_WIFI_SSID} ]; then
