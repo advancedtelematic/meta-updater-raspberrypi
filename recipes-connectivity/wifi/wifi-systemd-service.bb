@@ -8,14 +8,15 @@ SRC_URI = "\
     file://wpa_supplicant-wlan0.conf \
     "
 
-do_install () {
 
+do_install () {
     if [ -z ${RPI_WIFI_SSID} ]; then
-        bbfatal "RPI_WIFI_SSID is not defined !"
+        bbfatal "RPI_WIFI_SSID is not defined!"
     fi
     if [ -z ${RPI_WIFI_PWD} ]; then
-        bbfatal "RPI_WIFI_PWD is not defined !"
+        bbfatal "RPI_WIFI_PWD is not defined!"
     fi
+
     install -d ${D}/${systemd_unitdir}/network
     install -m 0644 ${WORKDIR}/26-dhcp-wireless.network ${D}/${systemd_unitdir}/network
 
@@ -31,7 +32,7 @@ do_install () {
 
 FILES_${PN} = " \
                 ${systemd_unitdir}/network/26-dhcp-wireless.network \
-		${sysconfdir}/wpa_supplicant \
-		${sysconfdir}/wpa_supplicant/wpa_supplicant-wlan0.conf \
+                ${sysconfdir}/wpa_supplicant \
+                ${sysconfdir}/wpa_supplicant/wpa_supplicant-wlan0.conf \
                 ${sysconfdir}/systemd/system/multi-user.target.wants/wpa_supplicant@wlan0.service \
               "
