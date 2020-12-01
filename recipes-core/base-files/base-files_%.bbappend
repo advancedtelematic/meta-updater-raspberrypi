@@ -1,4 +1,4 @@
-do_install_append () {
+do_install_append_rpi () {
     mkdir -p ${D}/mnt/bootpart
     cat >> ${D}${sysconfdir}/fstab <<EOF
 
